@@ -1,4 +1,5 @@
 const path = require("path");
+require("regenerator-runtime/runtime");
 
 const rules = [
   {
@@ -6,12 +7,20 @@ const rules = [
     exclude: /node_modules/,
     loader: "babel-loader",
   },
+  {
+    test: /\.css$/,
+    use: ["style-loader", "css-loader"],
+  },
 ];
 
 module.exports = {
   target: "web",
   mode: "development",
-  entry: "./src/index.tsx",
+  entry: [
+    "./node_modules/regenerator-runtime/runtime.js",
+    "./src/index.tsx",
+    "./src/styles/index.css",
+  ],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
